@@ -152,13 +152,12 @@ class PrimeVideo(Singleton):
     def _BeautifyText(self, title):
         """ Correct stylistic errors in Amazon's titles """
 
-        for t in [(r'\s+-\s*([^&])', r' – \1'),  # Convert dash from small to medium where needed
-                  (r'\s*-\s+([^&])', r' – \1'),  # Convert dash from small to medium where needed
-                  (r'^\s+', ''),  # Remove leading spaces
-                  (r'\s+$', ''),  # Remove trailing spaces
-                  (r' {2,}', ' '),  # Remove double spacing
-                  (r'\.\.\.', '…')]:  # Replace triple dots with ellipsis
-            title = re.sub(t[0], t[1], title)
+        #Remove leading, trailing and double spaces.
+        #Replace triple dots with ellipsis. 
+        #Convert dash from small to medium where needed. 
+        
+        title = title.strip().replace('  ',' ').replace('...','…').replace('-','–')
+        
         return title
 
     def _TraverseCatalog(self, path, bRefresh=False):
